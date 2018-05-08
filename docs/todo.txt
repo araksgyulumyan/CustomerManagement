@@ -1,0 +1,32 @@
+TASK
+
+1. Create a new spring boot project from scratch
+2. Create a GitHub repository for project
+3. Tech stack for project setup - JPA + Hibernate (persistence layer), Spring MVC (web layer)
+4. Spring security for API authentication
+5. Use Hikari or c3po for db connection pooling management
+
+Project
+1. Create User model (with min properties) with appropriate service/repository layer for managing users
+2. User should have UserRole -> ADMIN or CUSTOMER
+3. Create UserDetailsService (spring security package interface) implementation for further user atuhentication
+4. Create secured rest endpoints
+    1. Create Customer (ROLE ADMIN)
+    2. Update customer (ROLE ADMIN, ROLE CUSTOMER)
+    3. List all customers (ROLE ADMIN)
+    4. Delete customer (ROLE ADMIN)
+5. Implement AOP + Logging for tracking actions (configure logback.xml)
+
+
+POSTMAN FOR TESTING
+
+
+
+TO READ
+
+1) why the spring boot app is a jar file
+2) connection pooling management.... point properties in deep
+3) how to run spring boot app jar from terminal
+
+
+

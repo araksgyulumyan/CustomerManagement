@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/spring_boot_example
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password:
+    hikari:
+      idle-timeout: 10000
