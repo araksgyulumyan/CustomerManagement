@@ -1,9 +1,7 @@
 package com.example.core.service.customer;
 
-import com.example.core.dto.AbstractUserDto;
 import com.example.core.dto.CustomerDto;
 import com.example.core.entity.Customer;
-import com.example.core.enums.UserRole;
 import com.example.core.service.user.AbstractUserService;
 
 import java.util.List;
@@ -15,9 +13,9 @@ import java.util.List;
  */
 public interface CustomerService extends AbstractUserService<Customer> {
 
-    Customer createCustomer(final AbstractUserDto<Customer> abstractUserDto, final CustomerDto customerDto, final UserRole userRole);
+    Customer createCustomer(final CustomerDto customerDto);
 
-    Customer updateCustomer(final Long userId, final Long customerId, final AbstractUserDto<Customer> abstractUserDto, final CustomerDto customerDto, final UserRole userRole);
+    Customer updateCustomer(final Long customerId, final CustomerDto customerDto);
 
     List<Customer> getAllCustomers();
 

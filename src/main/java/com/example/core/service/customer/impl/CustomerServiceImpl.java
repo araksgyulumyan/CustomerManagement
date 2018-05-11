@@ -1,9 +1,7 @@
 package com.example.core.service.customer.impl;
 
-import com.example.core.dto.AbstractUserDto;
 import com.example.core.dto.CustomerDto;
 import com.example.core.entity.Customer;
-import com.example.core.entity.User;
 import com.example.core.enums.UserRole;
 import com.example.core.repository.customer.CustomerRepository;
 import com.example.core.repository.user.AbstractUserRepository;
@@ -24,8 +22,6 @@ import java.util.List;
 @Service
 public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> implements CustomerService {
 
-    public static final String ADMIN_PERMISSION = "Admin";
-
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -43,60 +39,53 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
 
     // Service methods
     @Override
-    public Customer createCustomer(AbstractUserDto<Customer> abstractUserDto, CustomerDto customerDto, UserRole userRole) {
-        checkTypeOfUser(customerRepository.findByType(ADMIN_PERMISSION));
-        createUser(abstractUserDto, userRole);
+    public Customer createCustomer(CustomerDto customerDto) {
+        assertCustomerDto(customerDto);
         Customer customer = createNewInstance();
         customerDto.updateDomainModelProperties(customer);
+        customer.setUserRole(UserRole.CUSTOMER);
         customer = getUserRepository().save(customer);
         return customer;
     }
 
     @Override
-    public Customer updateCustomer(Long userId, Long customerId, AbstractUserDto<Customer> abstractUserDto, CustomerDto customerDto, UserRole userRole) {
-        checkTypeOfUser(customerRepository.findByType(ADMIN_PERMISSION));
-        assertUserId(userId);
+    public Customer updateCustomer(Long customerId, CustomerDto customerDto) {
         assertCustomerId(customerId);
-        updateUser(userId, abstractUserDto, userRole);
+        assertCustomerDto(customerDto);
         Customer customer = getCustomerById(customerId);
         customerDto.updateDomainModelProperties(customer);
+        customer.setUserRole(UserRole.CUSTOMER);
         customer = getUserRepository().save(customer);
         return customer;
     }
 
     @Override
     public List<Customer> getAllCustomers() {
-        checkTypeOfUser(customerRepository.findByType(ADMIN_PERMISSION));
         return getUserRepository().findAll();
     }
 
     @Override
     public Customer getCustomerById(Long customerId) {
+        assertCustomerId(customerId);
         return getUserRepository().getOne(customerId);
     }
 
     @Override
     public void removeUserById(Long customerId) {
-        checkTypeOfUser(customerRepository.findByType(ADMIN_PERMISSION));
         assertCustomerId(customerId);
         getUserRepository().deleteById(customerId);
     }
 
     // Utility methods
 
-    private static void checkTypeOfUser(User user) {
-        if (!user.getType().equals("Admin")) {
-            throw new RuntimeException("You have no permission to make this action");
-        }
+    private static void assertCustomerDto(final CustomerDto customerDto) {
+        Assert.notNull(customerDto, "User dto should not be null");
+        Assert.hasText(customerDto.getFirstName(), "User dto first name should not be null");
+        Assert.hasText(customerDto.getPassword(), "User dto password should not be null");
+        Assert.hasText(customerDto.getEmail(), "User dto email should not be null");
     }
 
     private static void assertCustomerId(Long customerId) {
         Assert.notNull(customerId, "Customer Id should not be null");
     }
-
-    private static void assertUserId(Long userId) {
-        Assert.notNull(userId, "User Id should not be null");
-    }
-
-
 }

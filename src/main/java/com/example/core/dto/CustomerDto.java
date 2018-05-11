@@ -13,7 +13,6 @@ public class CustomerDto extends AbstractUserDto<Customer> {
     private String firstName;
 
     // Getters and Setters
-
     public String getFirstName() {
         return firstName;
     }
@@ -26,5 +25,7 @@ public class CustomerDto extends AbstractUserDto<Customer> {
     // Utility methods
     public void updateDomainModelProperties(final Customer customer) {
         customer.setFirstName(this.getFirstName());
+        customer.setEmail(this.getEmail());
+        customer.setPassword(this.getPassword());
     }
 }

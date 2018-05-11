@@ -13,7 +13,7 @@ public interface AdminService extends AbstractUserService<Admin> {
 
     Admin createAdmin(final AdminDto adminDto);
 
-    void removeCustomerById(final Long customerId);
+    Admin updateAdmin(final Long adminId, AdminDto adminDto);
 
-
+    Admin getAdminById(final Long adminId);
 }
