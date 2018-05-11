@@ -10,5 +10,4 @@ import com.example.core.repository.user.AbstractUserRepository;
  */
 public interface CustomerRepository extends AbstractUserRepository<Customer> {
 
-
 }

@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.core.service.customer.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +21,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan("com.example.*")
 public class CustomerManagement {
 
+    @Autowired
+    private CustomerService customerService;
+
     public static void main(String[] args) {
+
         SpringApplication.run(CustomerManagement.class, args);
     }
 

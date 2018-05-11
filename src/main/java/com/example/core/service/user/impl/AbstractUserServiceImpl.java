@@ -15,7 +15,7 @@ import org.springframework.util.Assert;
  * Time - 6:57 PM
  */
 
-public abstract class UserServiceImpl<T extends User> implements AbstractUserService<T> {
+public abstract class AbstractUserServiceImpl<T extends User> implements AbstractUserService<T> {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -40,11 +40,6 @@ public abstract class UserServiceImpl<T extends User> implements AbstractUserSer
         user.setPassword(encodedPassword);
         user = getUserRepository().save(user);
         return user;
-    }
-
-    @Override
-    public void removeUserById(Long id) {
-        getUserRepository().deleteById(id);
     }
 
     @Override
