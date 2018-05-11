@@ -13,7 +13,6 @@ public abstract class AbstractUserDto<T extends User> implements Serializable {
 
     // Properties
     private String password;
-    private String email;
 
     // Getters and Setters
     public String getPassword() {
@@ -25,17 +24,8 @@ public abstract class AbstractUserDto<T extends User> implements Serializable {
         return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public AbstractUserDto setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
     // Utility methods
     public void updateDomainModelProperties(final User user) {
-        user.setEmail(this.getEmail());
+        user.setPassword(this.getPassword());
     }
 }

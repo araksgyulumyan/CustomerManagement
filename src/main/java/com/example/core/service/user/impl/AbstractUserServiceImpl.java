@@ -2,7 +2,6 @@ package com.example.core.service.user.impl;
 
 import com.example.core.dto.AbstractUserDto;
 import com.example.core.entity.User;
-import com.example.core.enums.UserRole;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.user.AbstractUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +19,10 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Override
-    public T createUser(AbstractUserDto<T> userDto, UserRole userRole) {
-        assertEmailUniqueness(getUserRepository().findByEmail(userDto.getEmail()));
+    public T createUser(String email, AbstractUserDto<T> userDto) {
+        //todo call checkUserExistenceForEmail() method
         final String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         T user = createNewInstance();
         userDto.updateDomainModelProperties(user);
@@ -32,8 +32,8 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     }
 
     @Override
-    public T updateUser(Long userId, AbstractUserDto<T> userDto, UserRole userRole) {
-        assertEmailUniqueness(getUserRepository().findByEmail(userDto.getEmail()));
+    public T updateUser(Long userId, AbstractUserDto<T> userDto) {
+        //todo call checkUserExistenceForEmail() method
         final String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         T user = getUserById(userId);
         userDto.updateDomainModelProperties(user);
@@ -43,14 +43,15 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     }
 
     @Override
-    public T getUserById(Long id) {
-        assertId(id);
-        return getUserRepository().getOne(id);
+    public T getUserById(Long userId) {
+        assertUserId(userId);
+        return getUserRepository().getOne(userId);
     }
 
     @Override
     public T getUserByEmail(String email) {
         assertEmail(email);
+        // todo do not return null
         return getUserRepository().findByEmail(email);
     }
 
@@ -61,14 +62,9 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
 
 
     // Utility methods
-    private void assertEmailUniqueness(T user) {
-        if (user != null) {
-            throw new RuntimeException("Email is already taken");
-        }
-    }
-
-    private static void assertId(Long id) {
-        Assert.notNull(id, "Id should not be null");
+    //todo write checkUserExistenceForEmail() method
+    private static void assertUserId(Long userId) {
+        Assert.notNull(userId, "Id should not be null");
     }
 
     private static void assertEmail(String email) {

@@ -2,12 +2,12 @@ package com.example.core.service.admin.impl;
 
 import com.example.core.dto.AdminDto;
 import com.example.core.entity.Admin;
-import com.example.core.enums.UserRole;
 import com.example.core.repository.admin.AdminRepository;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.admin.AdminService;
 import com.example.core.service.user.impl.AbstractUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 /**
@@ -33,28 +33,31 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
 
     // Service methods
     @Override
-    public Admin createAdmin(AdminDto adminDto) {
+    @Transactional
+    public Admin createAdmin(String email, AdminDto adminDto) {
         assertAdminDto(adminDto);
         Admin admin = createNewInstance();
+        //todo check email uniqueness
         adminDto.updateDomainModelProperties(admin);
-        admin.setUserRole(UserRole.ADMIN);
+        admin.setEmail(email);
         admin = getUserRepository().save(admin);
         return admin;
     }
 
     @Override
+    @Transactional
     public Admin updateAdmin(Long adminId, AdminDto adminDto) {
         assertAdminId(adminId);
         assertAdminDto(adminDto);
         Admin admin = getAdminById(adminId);
         adminDto.updateDomainModelProperties(admin);
-        admin.setUserRole(UserRole.ADMIN);
         admin = getUserRepository().save(admin);
         return admin;
     }
 
     @Override
     public Admin getAdminById(Long adminId) {
+        // todo do not return null
         assertAdminId(adminId);
         return getUserRepository().getOne(adminId);
     }
@@ -70,7 +73,6 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
     private static void assertAdminDto(final AdminDto adminDto) {
         Assert.notNull(adminDto, "User dto should not be null");
         Assert.hasText(adminDto.getPassword(), "User dto password should not be null");
-        Assert.hasText(adminDto.getEmail(), "User dto email should not be null");
     }
 
     private static void assertAdminId(Long adminId) {

@@ -11,7 +11,7 @@ import com.example.core.service.user.AbstractUserService;
  */
 public interface AdminService extends AbstractUserService<Admin> {
 
-    Admin createAdmin(final AdminDto adminDto);
+    Admin createAdmin(final String email, final AdminDto adminDto);
 
     Admin updateAdmin(final Long adminId, AdminDto adminDto);
 

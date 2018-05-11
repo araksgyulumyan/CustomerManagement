@@ -9,7 +9,7 @@ TASK
 Project
 1. Create User model (with min properties) with appropriate service/repository layer for managing users
 2. User should have UserRole -> ADMIN or CUSTOMER
-3. Create UserDetailsService (spring security package interface) implementation for further user atuhentication
+3. Create UserDetailsService (spring security package interface) implementation for further user authentication
 4. Create secured rest endpoints
     1. Create Customer (ROLE ADMIN)
     2. Update customer (ROLE ADMIN, ROLE CUSTOMER)

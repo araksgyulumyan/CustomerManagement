@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface CustomerService extends AbstractUserService<Customer> {
 
-    Customer createCustomer(final CustomerDto customerDto);
+    Customer createCustomer(final String email, final CustomerDto customerDto);
 
     Customer updateCustomer(final Long customerId, final CustomerDto customerDto);
 

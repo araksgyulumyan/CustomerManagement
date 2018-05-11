@@ -24,8 +24,7 @@ public class CustomerDto extends AbstractUserDto<Customer> {
 
     // Utility methods
     public void updateDomainModelProperties(final Customer customer) {
+        super.updateDomainModelProperties(customer);
         customer.setFirstName(this.getFirstName());
-        customer.setEmail(this.getEmail());
-        customer.setPassword(this.getPassword());
     }
 }

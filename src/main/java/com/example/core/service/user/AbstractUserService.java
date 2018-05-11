@@ -2,7 +2,6 @@ package com.example.core.service.user;
 
 import com.example.core.dto.AbstractUserDto;
 import com.example.core.entity.User;
-import com.example.core.enums.UserRole;
 
 /**
  * Created by araksgyulumyan
@@ -11,9 +10,9 @@ import com.example.core.enums.UserRole;
  */
 public interface AbstractUserService<T extends User> {
 
-    T createUser(final AbstractUserDto<T> userDto, final UserRole userRole);
+    T createUser(final String email, final AbstractUserDto<T> userDto);
 
-    T updateUser(final Long userId, final AbstractUserDto<T> userDto, final UserRole userRole);
+    T updateUser(final Long userId, final AbstractUserDto<T> userDto);
 
     void removeUserById(final Long id);
 
