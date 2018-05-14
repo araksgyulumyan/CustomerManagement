@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.persistence.EntityNotFoundException;
+
 /**
  * Created by araksgyulumyan
  * Date - 5/9/18
@@ -69,8 +71,10 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     @Override
     public Customer getCustomerById(Long customerId) {
         assertCustomerId(customerId);
-        if (getUserRepository().getOne(customerId) == null) {
-            throw new NullPointerException("Customer is not found");
+        try {
+            getUserRepository().getOne(customerId);
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException("Customer is not found");
         }
         return getUserRepository().getOne(customerId);
     }

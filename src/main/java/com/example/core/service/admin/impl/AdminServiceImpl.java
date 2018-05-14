@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.persistence.EntityNotFoundException;
+
 /**
  * Created by araksgyulumyan
  * Date - 5/11/18
@@ -58,8 +60,10 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
     @Override
     public Admin getAdminById(Long adminId) {
         assertAdminId(adminId);
-        if (getUserRepository().getOne(adminId) == null) {
-            throw new NullPointerException("Admin is not found");
+        try {
+            getUserRepository().getOne(adminId);
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException("Admin is not found");
         }
         return getUserRepository().getOne(adminId);
     }
