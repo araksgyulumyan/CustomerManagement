@@ -10,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.persistence.EntityNotFoundException;
-
 /**
  * Created by araksgyulumyan
  * Date - 5/11/18
  * Time - 6:28 PM
  */
+//todo
 public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements AdminService {
 
     @Autowired
@@ -37,8 +36,9 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
     @Override
     @Transactional
     public Admin createAdmin(String email, AdminDto adminDto) {
+        //todo email
         assertAdminDto(adminDto);
-        checkAdminExistenceForEmail(getUserRepository().findByEmail(email));
+        checkAdminExistenceForEmail(email);
         Admin admin = createNewInstance();
         adminDto.updateDomainModelProperties(admin);
         admin.setEmail(email);
@@ -57,17 +57,14 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
         return admin;
     }
 
+    //todo change implementation
     @Override
     public Admin getAdminById(Long adminId) {
         assertAdminId(adminId);
-        try {
-            getUserRepository().getOne(adminId);
-        } catch (EntityNotFoundException ex) {
-            throw new RuntimeException("Admin is not found");
-        }
         return getUserRepository().getOne(adminId);
     }
 
+    // todo should be transactional
     @Override
     public void removeUserById(Long adminId) {
         assertAdminId(adminId);
@@ -85,7 +82,8 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
         Assert.notNull(adminId, "Admin Id should not be null");
     }
 
-    private static void checkAdminExistenceForEmail(Admin admin) {
+    private void checkAdminExistenceForEmail(String email) {
+        final Admin admin = getUserRepository().findByEmail(email);
         if (admin != null) {
             throw new RuntimeException("Email is already taken");
         }

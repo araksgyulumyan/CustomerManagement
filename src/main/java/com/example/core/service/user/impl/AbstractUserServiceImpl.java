@@ -19,7 +19,6 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     @Override
     public T createUser(String email, AbstractUserDto<T> userDto) {
         checkUserExistenceForEmail(getUserRepository().findByEmail(email));
@@ -51,6 +50,7 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     public T getUserByEmail(String email) {
         assertEmail(email);
         if (getUserRepository().findByEmail(email) == null) {
+            //todo
             throw new NullPointerException("User is not found");
         }
         return getUserRepository().findByEmail(email);

@@ -27,6 +27,7 @@ TO READ
 1) why the spring boot app is a jar file
 2) connection pooling management.... point properties in deep
 3) how to run spring boot app jar from terminal
+4) read about Serializable
 
 
 

@@ -12,9 +12,11 @@ import javax.persistence.Entity;
  * Time - 4:59 PM
  */
 
+//todo
 @Entity(name = "Customer")
 @DiscriminatorValue("Customer")
 public class Customer extends User {
+    //todo
 
     // Properties
     @Column(name = "firstName", nullable = false)
@@ -33,4 +35,6 @@ public class Customer extends User {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
+    //todo
 }

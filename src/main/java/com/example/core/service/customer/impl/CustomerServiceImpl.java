@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by araksgyulumyan
@@ -64,13 +66,18 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     }
 
     @Override
-    public Page<Customer> getAllCustomers(Pageable pageable) {
-        return getUserRepository().findAll(pageable);
+    public List<Customer> getAllCustomers(Pageable pageable) {
+        // todo create pageable from input args
+        Page<Customer> page = getUserRepository().findAll(pageable);
+        // convert to list of customer
+        final List<Customer> customers = page.stream().collect(Collectors.toList());
+        return customers;
     }
 
     @Override
     public Customer getCustomerById(Long customerId) {
         assertCustomerId(customerId);
+        //todo
         try {
             getUserRepository().getOne(customerId);
         } catch (EntityNotFoundException ex) {
@@ -79,6 +86,7 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
         return getUserRepository().getOne(customerId);
     }
 
+    //todo transactional
     @Override
     public void removeUserById(Long customerId) {
         assertCustomerId(customerId);

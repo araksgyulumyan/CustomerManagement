@@ -1,7 +1,7 @@
-package com.example.core.service;
+package com.example.core.service.auth;
 
 import com.example.core.entity.User;
-import com.example.core.service.user.impl.UserService;
+import com.example.core.service.user.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,10 +19,10 @@ import java.util.Collections;
  * Time - 6:23 PM
  */
 @Service("customUserDetailsService")
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
         final User user = userService.getUserByEmail(email);

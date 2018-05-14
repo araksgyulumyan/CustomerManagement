@@ -11,6 +11,7 @@ import javax.persistence.Entity;
  * Time - 5:08 PM
  */
 
+//todo
 @Entity(name = "Admin")
 @DiscriminatorValue("Admin")
 public class Admin extends User {
