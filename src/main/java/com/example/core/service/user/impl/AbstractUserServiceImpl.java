@@ -22,7 +22,7 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
 
     @Override
     public T createUser(String email, AbstractUserDto<T> userDto) {
-        //todo call checkUserExistenceForEmail() method
+        checkUserExistenceForEmail(getUserRepository().findByEmail(email));
         final String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         T user = createNewInstance();
         userDto.updateDomainModelProperties(user);
@@ -33,7 +33,6 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
 
     @Override
     public T updateUser(Long userId, AbstractUserDto<T> userDto) {
-        //todo call checkUserExistenceForEmail() method
         final String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         T user = getUserById(userId);
         userDto.updateDomainModelProperties(user);
@@ -51,7 +50,9 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     @Override
     public T getUserByEmail(String email) {
         assertEmail(email);
-        // todo do not return null
+        if (getUserRepository().findByEmail(email) == null) {
+            throw new NullPointerException("User is not found");
+        }
         return getUserRepository().findByEmail(email);
     }
 
@@ -62,12 +63,17 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
 
 
     // Utility methods
-    //todo write checkUserExistenceForEmail() method
+    private static void checkUserExistenceForEmail(User user) {
+        if (user != null) {
+            throw new RuntimeException("Email is already taken");
+        }
+    }
+
     private static void assertUserId(Long userId) {
         Assert.notNull(userId, "Id should not be null");
     }
 
     private static void assertEmail(String email) {
-        Assert.hasText(email, "Id should not be null");
+        Assert.hasText(email, "Email should not be null");
     }
 }

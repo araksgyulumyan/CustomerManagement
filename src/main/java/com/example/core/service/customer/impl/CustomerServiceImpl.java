@@ -7,11 +7,11 @@ import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.customer.CustomerService;
 import com.example.core.service.user.impl.AbstractUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-
-import java.util.List;
 
 /**
  * Created by araksgyulumyan
@@ -42,8 +42,8 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     @Transactional
     public Customer createCustomer(String email, CustomerDto customerDto) {
         assertCustomerDto(customerDto);
+        checkCustomerExistenceForEmail(getUserRepository().findByEmail(email));
         Customer customer = createNewInstance();
-        //todo check email uniqueness
         customerDto.updateDomainModelProperties(customer);
         customer.setEmail(email);
         customer = getUserRepository().save(customer);
@@ -62,15 +62,16 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
-        //todo with pagination
-        return getUserRepository().findAll();
+    public Page<Customer> getAllCustomers(Pageable pageable) {
+        return getUserRepository().findAll(pageable);
     }
 
     @Override
     public Customer getCustomerById(Long customerId) {
         assertCustomerId(customerId);
-        // todo do not return null
+        if (getUserRepository().getOne(customerId) == null) {
+            throw new NullPointerException("Customer is not found");
+        }
         return getUserRepository().getOne(customerId);
     }
 
@@ -81,6 +82,11 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     }
 
     // Utility methods
+    private static void checkCustomerExistenceForEmail(Customer customer) {
+        if (customer != null) {
+            throw new RuntimeException("Email is already taken");
+        }
+    }
 
     private static void assertCustomerDto(final CustomerDto customerDto) {
         Assert.notNull(customerDto, "User dto should not be null");

@@ -36,8 +36,8 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
     @Transactional
     public Admin createAdmin(String email, AdminDto adminDto) {
         assertAdminDto(adminDto);
+        checkAdminExistenceForEmail(getUserRepository().findByEmail(email));
         Admin admin = createNewInstance();
-        //todo check email uniqueness
         adminDto.updateDomainModelProperties(admin);
         admin.setEmail(email);
         admin = getUserRepository().save(admin);
@@ -57,8 +57,10 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
 
     @Override
     public Admin getAdminById(Long adminId) {
-        // todo do not return null
         assertAdminId(adminId);
+        if (getUserRepository().getOne(adminId) == null) {
+            throw new NullPointerException("Admin is not found");
+        }
         return getUserRepository().getOne(adminId);
     }
 
@@ -77,5 +79,11 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
 
     private static void assertAdminId(Long adminId) {
         Assert.notNull(adminId, "Admin Id should not be null");
+    }
+
+    private static void checkAdminExistenceForEmail(Admin admin) {
+        if (admin != null) {
+            throw new RuntimeException("Email is already taken");
+        }
     }
 }

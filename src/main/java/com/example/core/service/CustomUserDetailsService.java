@@ -1,7 +1,7 @@
 package com.example.core.service;
 
-import com.example.core.entity.Customer;
-import com.example.core.service.customer.CustomerService;
+import com.example.core.entity.User;
+import com.example.core.service.user.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,42 +21,38 @@ import java.util.Collections;
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
-
-    //todo create UserService which implements AbstractUserService interface
-    //todo override getUserByEmail method in UserService so that it returns User object
-    //todo change here everything from Customer to User specific things so that we can work with users
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
-        final Customer customer = customerService.getUserByEmail(email);
-        if(customer == null) {
+        final User user = userService.getUserByEmail(email);
+        if (user == null) {
             throw new RuntimeException("asdasdasd");
         }
-        return new CustomerUserDetails(customer);
+        return new GlobalUserDetails(user);
     }
 
-    public class CustomerUserDetails implements UserDetails {
+    public class GlobalUserDetails implements UserDetails {
 
-        private final Customer customer;
+        private final User user;
 
-        public CustomerUserDetails(final Customer customer) {
-            this.customer = customer;
+        public GlobalUserDetails(final User user) {
+            this.user = user;
         }
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + customer.getUserRole().name()));
+            return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getUserRole().name()));
         }
 
         @Override
         public String getPassword() {
-            return customer.getPassword();
+            return user.getPassword();
         }
 
         @Override
         public String getUsername() {
-            return customer.getEmail();
+            return user.getEmail();
         }
 
         @Override

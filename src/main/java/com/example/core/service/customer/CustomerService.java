@@ -3,8 +3,8 @@ package com.example.core.service.customer;
 import com.example.core.dto.CustomerDto;
 import com.example.core.entity.Customer;
 import com.example.core.service.user.AbstractUserService;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Created by araksgyulumyan
@@ -17,7 +17,7 @@ public interface CustomerService extends AbstractUserService<Customer> {
 
     Customer updateCustomer(final Long customerId, final CustomerDto customerDto);
 
-    List<Customer> getAllCustomers();
+    Page<Customer> getAllCustomers(Pageable pageable);
 
     Customer getCustomerById(Long customerId);
 
