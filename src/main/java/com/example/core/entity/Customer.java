@@ -1,22 +1,26 @@
 package com.example.core.entity;
 
 import com.example.core.enums.UserRole;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by araksgyulumyan
  * Date - 5/9/18
  * Time - 4:59 PM
  */
-
-//todo
 @Entity(name = "Customer")
+@Table(name = "customer")
 @DiscriminatorValue("Customer")
 public class Customer extends User {
-    //todo
+
+    private static final long serialVersionUID = 3210175392787115313L;
 
     // Properties
     @Column(name = "firstName", nullable = false)
@@ -36,5 +40,37 @@ public class Customer extends User {
         this.firstName = firstName;
     }
 
-    //todo
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        Customer rhs = (Customer) obj;
+        return new EqualsBuilder()
+                .appendSuper(super.equals(obj))
+                .append(this.firstName, rhs.firstName)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .appendSuper(super.hashCode())
+                .append(firstName)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .appendSuper(super.toString())
+                .append("firstName", firstName)
+                .toString();
+    }
 }

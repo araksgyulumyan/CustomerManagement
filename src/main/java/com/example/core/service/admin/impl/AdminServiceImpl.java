@@ -7,6 +7,7 @@ import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.admin.AdminService;
 import com.example.core.service.user.impl.AbstractUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -15,7 +16,8 @@ import org.springframework.util.Assert;
  * Date - 5/11/18
  * Time - 6:28 PM
  */
-//todo
+
+@Service
 public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements AdminService {
 
     @Autowired
@@ -36,7 +38,7 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
     @Override
     @Transactional
     public Admin createAdmin(String email, AdminDto adminDto) {
-        //todo email
+        assertEmail(email);
         assertAdminDto(adminDto);
         checkAdminExistenceForEmail(email);
         Admin admin = createNewInstance();
@@ -57,15 +59,14 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
         return admin;
     }
 
-    //todo change implementation
     @Override
     public Admin getAdminById(Long adminId) {
         assertAdminId(adminId);
         return getUserRepository().getOne(adminId);
     }
 
-    // todo should be transactional
     @Override
+    @Transactional
     public void removeUserById(Long adminId) {
         assertAdminId(adminId);
         getUserRepository().deleteById(adminId);
@@ -80,6 +81,10 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
 
     private static void assertAdminId(Long adminId) {
         Assert.notNull(adminId, "Admin Id should not be null");
+    }
+
+    private static void assertEmail(String email) {
+        Assert.hasText(email, "Email should not be null");
     }
 
     private void checkAdminExistenceForEmail(String email) {

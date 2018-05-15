@@ -6,6 +6,7 @@ import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.user.AbstractUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.util.Assert;
  * Date - 5/9/18
  * Time - 6:57 PM
  */
-
+@Service
 public abstract class AbstractUserServiceImpl<T extends User> implements AbstractUserService<T> {
 
     @Autowired
@@ -50,8 +51,7 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     public T getUserByEmail(String email) {
         assertEmail(email);
         if (getUserRepository().findByEmail(email) == null) {
-            //todo
-            throw new NullPointerException("User is not found");
+            throw new RuntimeException("User is not found");
         }
         return getUserRepository().findByEmail(email);
     }

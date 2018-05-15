@@ -4,6 +4,7 @@ import com.example.core.enums.UserRole;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by araksgyulumyan
@@ -11,13 +12,14 @@ import javax.persistence.Entity;
  * Time - 5:08 PM
  */
 
-//todo
 @Entity(name = "Admin")
+@Table(name = "admin")
 @DiscriminatorValue("Admin")
 public class Admin extends User {
 
-    // Constructor
+    private static final long serialVersionUID = -7401350750545816139L;
 
+    // Constructor
     public Admin() {
         this.setUserRole(UserRole.ADMIN);
     }

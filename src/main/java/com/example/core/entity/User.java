@@ -34,12 +34,10 @@ public abstract class User implements Serializable {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    //todo
-    @Column(name = "type", nullable = false, insertable = false, updatable = false)
+    @Column(name = "type", nullable = false)
     private String type;
 
-    //todo
-    @Column(name = "role", nullable = false, insertable = false, updatable = false)
+    @Column(name = "role", nullable = false)
     private UserRole userRole;
 
     // Properties getters and setters
