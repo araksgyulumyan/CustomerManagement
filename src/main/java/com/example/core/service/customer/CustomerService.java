@@ -17,9 +17,15 @@ public interface CustomerService extends AbstractUserService<Customer> {
 
     Customer updateCustomer(final Long customerId, final CustomerDto customerDto);
 
+    /**
+     * sdfgfdgdfgdfgdfg
+     *
+     * @param limit
+     * @param offset
+     * @return sdfsdf
+     * @throws //todo
+     */
     List<Customer> getLimitedCustomers(final Integer limit, final Integer offset);
 
     Customer getCustomerById(Long customerId);
-
-
 }

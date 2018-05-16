@@ -13,7 +13,5 @@ public interface AdminService extends AbstractUserService<Admin> {
 
     Admin createAdmin(final String email, final AdminDto adminDto);
 
-    Admin updateAdmin(final Long adminId, AdminDto adminDto);
-
     Admin getAdminById(final Long adminId);
 }

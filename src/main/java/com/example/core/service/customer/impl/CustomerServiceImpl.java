@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 /**
@@ -28,6 +29,7 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     @Autowired
     private CustomerRepository customerRepository;
 
+    //todo create repo and inject
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -68,12 +70,14 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Customer> getLimitedCustomers(Integer pageNumber, Integer pageSize) {
 //        Pageable pageable = PageRequest.of(limit, offset);
 //        Page<Customer> page = getUserRepository().findAll(pageable);
 //        return page.stream().collect(Collectors.toList());
+//        CriteriaQuery criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Customer.class);
 
-        Query query = entityManager.createQuery("From Customer.class");
+        Query query = entityManager.createQuery("From Customer");
         query.setFirstResult((pageNumber - 1) * pageSize);
         query.setMaxResults(pageSize);
         return query.getResultList();

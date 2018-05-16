@@ -37,6 +37,8 @@ public abstract class User implements Serializable {
     @Column(name = "type", nullable = false)
     private String type;
 
+    //todo
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole userRole;
 

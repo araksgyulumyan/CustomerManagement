@@ -8,7 +8,8 @@ spring:
     hikari:
       idle-timeout: 10000 #max amount of time that connection is allowed to sit idle in pool
       maximum-pool-size: 150 #max size that pool is allowed to reach (idle + in-use)
-      connection-timeout: 100000 #client wait for a connection from pool
-      validation-timeout: 100000000000 #pool wait for a connection to be alive
-      max-lifetime: 600000000L #max lifetime of connection in pool
+#      connection-timeout: 100000 #client wait for a connection from pool
+#      validation-timeout: 100000000000 #pool wait for a connection to be alive
+#      max-lifetime: 600000000 #max lifetime of connection in pool
+      minimum-idle: //todo
 

@@ -6,6 +6,8 @@ import com.example.core.repository.admin.AdminRepository;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.admin.AdminService;
 import com.example.core.service.user.impl.AbstractUserServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,8 @@ import org.springframework.util.Assert;
 
 @Service
 public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements AdminService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Autowired
     private AdminRepository adminRepository;
@@ -42,19 +46,9 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
         assertAdminDto(adminDto);
         checkAdminExistenceForEmail(email);
         Admin admin = createNewInstance();
-        adminDto.updateDomainModelProperties(admin);
+        final String encodedPassword = passwordEncoder.encode(adminDto.getPassword());
         admin.setEmail(email);
-        admin = getUserRepository().save(admin);
-        return admin;
-    }
-
-    @Override
-    @Transactional
-    public Admin updateAdmin(Long adminId, AdminDto adminDto) {
-        assertAdminId(adminId);
-        assertAdminDto(adminDto);
-        Admin admin = getAdminById(adminId);
-        adminDto.updateDomainModelProperties(admin);
+        admin.setPassword(encodedPassword);
         admin = getUserRepository().save(admin);
         return admin;
     }
@@ -72,11 +66,10 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
         getUserRepository().deleteById(adminId);
     }
 
-
     // Utility methods
     private static void assertAdminDto(final AdminDto adminDto) {
         Assert.notNull(adminDto, "User dto should not be null");
-        Assert.hasText(adminDto.getPassword(), "User dto password should not be null");
+        Assert.hasText(adminDto.getPassword(), "User dto password should not be empty");
     }
 
     private static void assertAdminId(Long adminId) {
@@ -90,6 +83,7 @@ public class AdminServiceImpl extends AbstractUserServiceImpl<Admin> implements 
     private void checkAdminExistenceForEmail(String email) {
         final Admin admin = getUserRepository().findByEmail(email);
         if (admin != null) {
+            LOGGER.error("message");
             throw new RuntimeException("Email is already taken");
         }
     }

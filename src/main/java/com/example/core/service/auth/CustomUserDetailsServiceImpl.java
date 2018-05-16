@@ -24,15 +24,15 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserServiceImpl userService;
 
+    @Override
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
         final User user = userService.getUserByEmail(email);
-        if (user == null) {
-            throw new RuntimeException("asdasdasd");
-        }
         return new GlobalUserDetails(user);
     }
 
     public class GlobalUserDetails implements UserDetails {
+
+        private static final long serialVersionUID = -3214215200499248948L;
 
         private final User user;
 

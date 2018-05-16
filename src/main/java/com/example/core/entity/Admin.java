@@ -11,10 +11,10 @@ import javax.persistence.Table;
  * Date - 5/9/18
  * Time - 5:08 PM
  */
-
+//todo
 @Entity(name = "Admin")
 @Table(name = "admin")
-@DiscriminatorValue("Admin")
+@DiscriminatorValue("ADMIN")
 public class Admin extends User {
 
     private static final long serialVersionUID = -7401350750545816139L;

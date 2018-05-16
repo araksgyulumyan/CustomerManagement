@@ -25,8 +25,4 @@ public abstract class AbstractUserDto<T extends User> implements Serializable {
         return this;
     }
 
-    // Utility methods
-    public void updateDomainModelProperties(final User user) {
-        user.setPassword(this.getPassword());
-    }
 }

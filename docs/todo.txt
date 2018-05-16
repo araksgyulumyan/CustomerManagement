@@ -1,10 +1,10 @@
 TASK
 
-1. Create a new spring boot project from scratch
-2. Create a GitHub repository for project
-3. Tech stack for project setup - JPA + Hibernate (persistence layer), Spring MVC (web layer)
+1. Create a new spring boot project from scratch +
+2. Create a GitHub repository for project +
+3. Tech stack for project setup - JPA + Hibernate (persistence layer), Spring MVC (web layer) +
 4. Spring security for API authentication
-5. Use Hikari or c3po for db connection pooling management
+5. Use Hikari or c3po for db connection pooling management +
 
 Project
 1. Create User model (with min properties) with appropriate service/repository layer for managing users
@@ -28,6 +28,11 @@ TO READ
 2) connection pooling management.... point properties in deep +
 3) how to run spring boot app jar from terminal +
 4) read about Serializable +
+5) read about dependency scope types
+
+
+SEPARATE PER PACKAGE MODELS, REPOS etc....
+
 
 
 

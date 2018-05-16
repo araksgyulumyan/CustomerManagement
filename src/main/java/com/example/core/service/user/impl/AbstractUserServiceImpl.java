@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.Objects;
+
 /**
  * Created by araksgyulumyan
  * Date - 5/9/18
@@ -18,14 +20,13 @@ import org.springframework.util.Assert;
 public abstract class AbstractUserServiceImpl<T extends User> implements AbstractUserService<T> {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    protected PasswordEncoder passwordEncoder;
 
     @Override
     public T createUser(String email, AbstractUserDto<T> userDto) {
         checkUserExistenceForEmail(getUserRepository().findByEmail(email));
         final String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         T user = createNewInstance();
-        userDto.updateDomainModelProperties(user);
         user.setPassword(encodedPassword);
         user = getUserRepository().save(user);
         return user;
@@ -35,7 +36,6 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     public T updateUser(Long userId, AbstractUserDto<T> userDto) {
         final String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         T user = getUserById(userId);
-        userDto.updateDomainModelProperties(user);
         user.setPassword(encodedPassword);
         user = getUserRepository().save(user);
         return user;
@@ -50,10 +50,11 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     @Override
     public T getUserByEmail(String email) {
         assertEmail(email);
-        if (getUserRepository().findByEmail(email) == null) {
+        T user = getUserRepository().findByEmail(email);
+        if (Objects.isNull(user)) {
             throw new RuntimeException("User is not found");
         }
-        return getUserRepository().findByEmail(email);
+        return user;
     }
 
     // Abstract methods

@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
  */
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,15 +23,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserByEmail(String email) {
         assertEmail(email);
-        if (userRepository.findByEmail(email) == null) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
             throw new RuntimeException("User is not found");
         }
-        return userRepository.findByEmail(email);
+        return user;
     }
 
     // Utility methods
     private static void assertEmail(String email) {
-        Assert.hasText(email, "Id should not be null");
+        Assert.hasText(email, "Email should not be null");
     }
 
 }

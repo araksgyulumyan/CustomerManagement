@@ -15,9 +15,9 @@ import javax.persistence.Table;
  * Date - 5/9/18
  * Time - 4:59 PM
  */
-@Entity(name = "Customer")
+@Entity
 @Table(name = "customer")
-@DiscriminatorValue("Customer")
+@DiscriminatorValue("CUSTOMER")
 public class Customer extends User {
 
     private static final long serialVersionUID = 3210175392787115313L;
