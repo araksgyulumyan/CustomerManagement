@@ -2,6 +2,7 @@ package com.example.core.service.customer.impl;
 
 import com.example.core.dto.CustomerDto;
 import com.example.core.entity.user.Customer;
+import com.example.core.repository.customer.CustomerEntityManagementRepository;
 import com.example.core.repository.customer.CustomerRepository;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.customer.CustomerService;
@@ -11,9 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -28,10 +26,8 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     @Autowired
     private CustomerRepository customerRepository;
 
-    //todo create repo and inject
-    @PersistenceContext
-    private EntityManager entityManager;
-
+    @Autowired
+    private CustomerEntityManagementRepository customerEntityManagementRepository;
 
     // Abstract Methods
     @Override
@@ -71,16 +67,10 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Customer> getLimitedCustomers(Integer pageNumber, Integer pageSize) {
-//        Pageable pageable = PageRequest.of(limit, offset);
-//        Page<Customer> page = getUserRepository().findAll(pageable);
-//        return page.stream().collect(Collectors.toList());
-//        CriteriaQuery criteriaQuery = entityManager.getCriteriaBuilder().createQuery(Customer.class);
-
-        Query query = entityManager.createQuery("From Customer");
-        query.setFirstResult((pageNumber - 1) * pageSize);
-        query.setMaxResults(pageSize);
-        return query.getResultList();
+    public List<Customer> getLimitedCustomers(Integer limit, Integer offset) {
+        assertLimit(limit);
+        assertOffset(offset);
+        return customerEntityManagementRepository.getLimitedUsers(limit, offset);
     }
 
     @Override
@@ -111,5 +101,13 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
 
     private static void assertCustomerId(Long customerId) {
         Assert.notNull(customerId, "Customer Id should not be null");
+    }
+
+    private static void assertLimit(Integer limit) {
+        Assert.notNull(limit, "Limit should not be null");
+    }
+
+    private static void assertOffset(Integer offset) {
+        Assert.notNull(offset, "Offset should not be null");
     }
 }

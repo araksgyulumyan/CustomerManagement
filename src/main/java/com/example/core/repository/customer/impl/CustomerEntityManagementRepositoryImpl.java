@@ -1,7 +1,7 @@
 package com.example.core.repository.customer.impl;
 
 import com.example.core.entity.user.Customer;
-import com.example.core.repository.customer.CustomerRepository;
+import com.example.core.repository.customer.CustomerEntityManagementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,16 +19,13 @@ import java.util.List;
  */
 
 @Repository
-public class CustomerRepositoryImpl implements CustomerRepository {
+public class CustomerEntityManagementRepositoryImpl implements CustomerEntityManagementRepository {
 
     @Autowired
     private EntityManager entityManager;
 
     @Override
-    public List<Customer> getLimitedCustomers(Integer limit, Integer offset) {
-        int pageNumber = 1;
-        int pageSize = 10;
-
+    public List<Customer> getLimitedUsers(Integer limit, Integer offset) {
         // creating criteriaBuilder  object for creating criteriaQuery
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
