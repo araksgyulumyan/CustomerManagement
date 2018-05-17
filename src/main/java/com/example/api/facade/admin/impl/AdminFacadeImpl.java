@@ -1,18 +1,21 @@
 package com.example.api.facade.admin.impl;
 
-import com.example.api.facade.user.AbstractUserFacade;
+import com.example.api.facade.admin.AdminFacade;
 import com.example.api.model.admin.AdminModel;
 import com.example.core.dto.AdminDto;
 import com.example.core.entity.user.Admin;
 import com.example.core.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by araksgyulumyan
  * Date - 5/17/18
  * Time - 5:58 PM
  */
-public class AdminFacadeImpl implements AbstractUserFacade<AdminModel> {
+
+@Component
+public class AdminFacadeImpl implements AdminFacade {
 
     @Autowired
     private AdminService adminService;

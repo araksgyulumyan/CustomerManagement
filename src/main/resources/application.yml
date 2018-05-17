@@ -11,5 +11,5 @@ spring:
 #      connection-timeout: 100000 #client wait for a connection from pool
 #      validation-timeout: 100000000000 #pool wait for a connection to be alive
 #      max-lifetime: 600000000 #max lifetime of connection in pool
-      minimum-idle: //todo
+      minimum-idle: 100 #minimum number of idle connections
 
