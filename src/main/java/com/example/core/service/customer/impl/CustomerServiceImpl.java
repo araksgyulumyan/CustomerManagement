@@ -1,7 +1,7 @@
 package com.example.core.service.customer.impl;
 
 import com.example.core.dto.CustomerDto;
-import com.example.core.entity.Customer;
+import com.example.core.entity.user.Customer;
 import com.example.core.repository.customer.CustomerRepository;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.customer.CustomerService;
@@ -14,7 +14,6 @@ import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 /**
@@ -32,6 +31,7 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     //todo create repo and inject
     @PersistenceContext
     private EntityManager entityManager;
+
 
     // Abstract Methods
     @Override

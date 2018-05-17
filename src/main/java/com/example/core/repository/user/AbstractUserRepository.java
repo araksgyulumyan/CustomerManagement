@@ -1,6 +1,6 @@
 package com.example.core.repository.user;
 
-import com.example.core.entity.User;
+import com.example.core.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

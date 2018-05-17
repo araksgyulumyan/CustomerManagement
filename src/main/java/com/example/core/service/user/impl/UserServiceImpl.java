@@ -1,6 +1,6 @@
 package com.example.core.service.user.impl;
 
-import com.example.core.entity.User;
+import com.example.core.entity.user.User;
 import com.example.core.repository.user.UserRepository;
 import com.example.core.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

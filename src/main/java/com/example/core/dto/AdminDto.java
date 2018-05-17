@@ -1,6 +1,6 @@
 package com.example.core.dto;
 
-import com.example.core.entity.Admin;
+import com.example.core.entity.user.Admin;
 
 /**
  * Created by araksgyulumyan

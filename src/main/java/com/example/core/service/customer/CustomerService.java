@@ -1,7 +1,7 @@
 package com.example.core.service.customer;
 
 import com.example.core.dto.CustomerDto;
-import com.example.core.entity.Customer;
+import com.example.core.entity.user.Customer;
 import com.example.core.service.user.AbstractUserService;
 
 import java.util.List;
@@ -17,14 +17,6 @@ public interface CustomerService extends AbstractUserService<Customer> {
 
     Customer updateCustomer(final Long customerId, final CustomerDto customerDto);
 
-    /**
-     * sdfgfdgdfgdfgdfg
-     *
-     * @param limit
-     * @param offset
-     * @return sdfsdf
-     * @throws //todo
-     */
     List<Customer> getLimitedCustomers(final Integer limit, final Integer offset);
 
     Customer getCustomerById(Long customerId);

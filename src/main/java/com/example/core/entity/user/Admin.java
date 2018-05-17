@@ -1,4 +1,4 @@
-package com.example.core.entity;
+package com.example.core.entity.user;
 
 import com.example.core.enums.UserRole;
 
@@ -11,8 +11,7 @@ import javax.persistence.Table;
  * Date - 5/9/18
  * Time - 5:08 PM
  */
-//todo
-@Entity(name = "Admin")
+@Entity
 @Table(name = "admin")
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {

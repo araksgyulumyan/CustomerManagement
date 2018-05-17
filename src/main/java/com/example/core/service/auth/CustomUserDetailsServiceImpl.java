@@ -1,6 +1,6 @@
 package com.example.core.service.auth;
 
-import com.example.core.entity.User;
+import com.example.core.entity.user.User;
 import com.example.core.service.user.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

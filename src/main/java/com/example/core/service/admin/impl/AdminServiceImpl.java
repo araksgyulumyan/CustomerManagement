@@ -1,7 +1,7 @@
 package com.example.core.service.admin.impl;
 
 import com.example.core.dto.AdminDto;
-import com.example.core.entity.Admin;
+import com.example.core.entity.user.Admin;
 import com.example.core.repository.admin.AdminRepository;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.admin.AdminService;

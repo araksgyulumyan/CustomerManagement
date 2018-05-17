@@ -1,8 +1,9 @@
 package com.example.core.repository.customer;
 
-import com.example.core.entity.Customer;
-import com.example.core.repository.user.AbstractUserRepository;
+import com.example.core.entity.user.Customer;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created by araksgyulumyan
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
  * Time - 7:21 PM
  */
 @Repository
-public interface CustomerRepository extends AbstractUserRepository<Customer> {
+public interface CustomerRepository{
+    List<Customer> getLimitedCustomers(Integer limit, Integer offset);
 
 }

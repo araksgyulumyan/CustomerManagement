@@ -1,4 +1,4 @@
-package com.example.core.entity;
+package com.example.core.entity.user;
 
 import com.example.core.enums.UserRole;
 import org.apache.commons.lang3.builder.EqualsBuilder;

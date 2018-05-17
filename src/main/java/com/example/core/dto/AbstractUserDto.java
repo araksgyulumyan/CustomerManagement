@@ -1,6 +1,6 @@
 package com.example.core.dto;
 
-import com.example.core.entity.User;
+import com.example.core.entity.user.User;
 
 import java.io.Serializable;
 

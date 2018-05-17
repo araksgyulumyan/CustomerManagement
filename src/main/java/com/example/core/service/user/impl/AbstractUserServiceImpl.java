@@ -1,7 +1,7 @@
 package com.example.core.service.user.impl;
 
 import com.example.core.dto.AbstractUserDto;
-import com.example.core.entity.User;
+import com.example.core.entity.user.User;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.user.AbstractUserService;
 import org.springframework.beans.factory.annotation.Autowired;

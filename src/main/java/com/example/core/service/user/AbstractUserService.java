@@ -1,7 +1,7 @@
 package com.example.core.service.user;
 
 import com.example.core.dto.AbstractUserDto;
-import com.example.core.entity.User;
+import com.example.core.entity.user.User;
 
 /**
  * Created by araksgyulumyan

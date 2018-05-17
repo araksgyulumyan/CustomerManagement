@@ -1,6 +1,6 @@
 package com.example.core.repository.admin;
 
-import com.example.core.entity.Admin;
+import com.example.core.entity.user.Admin;
 import com.example.core.repository.user.AbstractUserRepository;
 import org.springframework.stereotype.Repository;
 

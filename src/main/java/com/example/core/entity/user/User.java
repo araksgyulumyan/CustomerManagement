@@ -1,4 +1,4 @@
-package com.example.core.entity;
+package com.example.core.entity.user;
 
 import com.example.core.enums.UserRole;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -37,7 +37,6 @@ public abstract class User implements Serializable {
     @Column(name = "type", nullable = false)
     private String type;
 
-    //todo
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole userRole;
