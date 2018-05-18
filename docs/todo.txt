@@ -7,8 +7,8 @@ TASK
 5. Use Hikari or c3po for db connection pooling management +
 
 Project
-1. Create User model (with min properties) with appropriate service/repository layer for managing users
-2. User should have UserRole -> ADMIN or CUSTOMER
+1. Create User model (with min properties) with appropriate service/repository layer for managing users +
+2. User should have UserRole -> ADMIN or CUSTOMER +
 3. Create UserDetailsService (spring security package interface) implementation for further user authentication
 4. Create secured rest endpoints
     1. Create Customer (ROLE ADMIN)
@@ -26,7 +26,7 @@ TO READ
 
 1) why the spring boot app is a jar file +
 2) connection pooling management.... point properties in deep +
-3) how to run spring boot app jar from terminal +
+3) how to run spring boot app jar from terminal -
 4) read about Serializable +
 5) read about dependency scope types
 

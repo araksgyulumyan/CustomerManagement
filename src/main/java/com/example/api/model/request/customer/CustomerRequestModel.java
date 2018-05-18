@@ -1,6 +1,5 @@
-package com.example.api.model.customer;
+package com.example.api.model.request.customer;
 
-import com.example.api.model.user.AbstractUserModel;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -12,7 +11,8 @@ import javax.validation.constraints.NotNull;
  * Date - 5/17/18
  * Time - 5:47 PM
  */
-public class CustomerModel extends AbstractUserModel {
+
+public class CustomerRequestModel {
 
     private static final long serialVersionUID = 1642165484706266683L;
 
@@ -39,7 +39,7 @@ public class CustomerModel extends AbstractUserModel {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        CustomerModel rhs = (CustomerModel) obj;
+        CustomerRequestModel rhs = (CustomerRequestModel) obj;
         return new EqualsBuilder()
                 .appendSuper(super.equals(obj))
                 .append(this.firstName, rhs.firstName)

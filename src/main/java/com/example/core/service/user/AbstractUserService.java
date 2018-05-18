@@ -1,6 +1,5 @@
 package com.example.core.service.user;
 
-import com.example.core.dto.AbstractUserDto;
 import com.example.core.entity.user.User;
 
 /**
@@ -10,14 +9,8 @@ import com.example.core.entity.user.User;
  */
 public interface AbstractUserService<T extends User> {
 
-    T createUser(final String email, final AbstractUserDto<T> userDto);
-
-    T updateUser(final Long userId, final AbstractUserDto<T> userDto);
-
     void removeUserById(final Long id);
 
     T getUserById(final Long id);
-
-    T getUserByEmail(final String email);
 
 }

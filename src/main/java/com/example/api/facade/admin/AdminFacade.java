@@ -1,7 +1,7 @@
 package com.example.api.facade.admin;
 
-import com.example.api.facade.user.AbstractUserFacade;
-import com.example.api.model.admin.AdminModel;
+import com.example.api.model.request.admin.AdminRequestModel;
+import com.example.api.model.response.admin.AdminResponseModel;
 
 /**
  * Created by araksgyulumyan
@@ -9,5 +9,10 @@ import com.example.api.model.admin.AdminModel;
  * Time - 5:35 PM
  */
 
-public interface AdminFacade extends AbstractUserFacade<AdminModel> {
+public interface AdminFacade {
+
+    AdminResponseModel create(final String email, final AdminRequestModel userModel);
+
+    void deleteUser(final Long userId);
+
 }

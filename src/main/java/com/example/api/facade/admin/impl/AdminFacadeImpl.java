@@ -1,7 +1,8 @@
 package com.example.api.facade.admin.impl;
 
 import com.example.api.facade.admin.AdminFacade;
-import com.example.api.model.admin.AdminModel;
+import com.example.api.model.request.admin.AdminRequestModel;
+import com.example.api.model.response.admin.AdminResponseModel;
 import com.example.core.dto.AdminDto;
 import com.example.core.entity.user.Admin;
 import com.example.core.service.admin.AdminService;
@@ -22,15 +23,9 @@ public class AdminFacadeImpl implements AdminFacade {
 
     // Interface public methods overrides
     @Override
-    public AdminModel create(String email, AdminModel adminModel) {
-        Admin admin = adminService.createAdmin(email, toAdminDto(adminModel));
-        return convertToAdminModel(admin);
-    }
-
-    @Override
-    public AdminModel update(Long adminId, AdminModel adminModel) {
-        final Admin admin = adminService.updateUser(adminId, toAdminDto(adminModel));
-        return convertToAdminModel(admin);
+    public AdminResponseModel create(String email, AdminRequestModel adminRequestModel) {
+        Admin admin = adminService.createAdmin(email, toAdminDto(adminRequestModel));
+        return convertToAdminResponseModel(admin);
     }
 
     @Override
@@ -39,11 +34,11 @@ public class AdminFacadeImpl implements AdminFacade {
     }
 
     // Utility methods
-    private static AdminDto toAdminDto(final AdminModel adminModel) {
-        return (AdminDto) new AdminDto().setPassword(adminModel.getPassword());
+    private static AdminDto toAdminDto(final AdminRequestModel adminRequestModel) {
+        return new AdminDto().setPassword(adminRequestModel.getPassword());
     }
 
-    private AdminModel convertToAdminModel(Admin admin) {
-        return (AdminModel) new AdminModel().setEmail(admin.getEmail());
+    private AdminResponseModel convertToAdminResponseModel(Admin admin) {
+        return new AdminResponseModel().setEmail(admin.getEmail());
     }
 }

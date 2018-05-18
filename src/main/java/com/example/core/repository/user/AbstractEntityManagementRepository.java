@@ -10,6 +10,7 @@ import java.util.List;
  * Time - 5:14 PM
  */
 public interface AbstractEntityManagementRepository<T extends User> {
+
     List<T> getLimitedUsers(final Integer limit, final Integer offset);
 
 }

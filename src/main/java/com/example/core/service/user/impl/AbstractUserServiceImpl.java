@@ -1,6 +1,5 @@
 package com.example.core.service.user.impl;
 
-import com.example.core.dto.AbstractUserDto;
 import com.example.core.entity.user.User;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.user.AbstractUserService;
@@ -8,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
-import java.util.Objects;
 
 /**
  * Created by araksgyulumyan
@@ -23,38 +20,9 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
     protected PasswordEncoder passwordEncoder;
 
     @Override
-    public T createUser(String email, AbstractUserDto<T> userDto) {
-        checkUserExistenceForEmail(getUserRepository().findByEmail(email));
-        final String encodedPassword = passwordEncoder.encode(userDto.getPassword());
-        T user = createNewInstance();
-        user.setPassword(encodedPassword);
-        user = getUserRepository().save(user);
-        return user;
-    }
-
-    @Override
-    public T updateUser(Long userId, AbstractUserDto<T> userDto) {
-        final String encodedPassword = passwordEncoder.encode(userDto.getPassword());
-        T user = getUserById(userId);
-        user.setPassword(encodedPassword);
-        user = getUserRepository().save(user);
-        return user;
-    }
-
-    @Override
     public T getUserById(Long userId) {
         assertUserId(userId);
         return getUserRepository().getOne(userId);
-    }
-
-    @Override
-    public T getUserByEmail(String email) {
-        assertEmail(email);
-        T user = getUserRepository().findByEmail(email);
-        if (Objects.isNull(user)) {
-            throw new RuntimeException("User is not found");
-        }
-        return user;
     }
 
     // Abstract methods
@@ -64,17 +32,9 @@ public abstract class AbstractUserServiceImpl<T extends User> implements Abstrac
 
 
     // Utility methods
-    private static void checkUserExistenceForEmail(User user) {
-        if (user != null) {
-            throw new RuntimeException("Email is already taken");
-        }
-    }
 
     private static void assertUserId(Long userId) {
         Assert.notNull(userId, "Id should not be null");
     }
 
-    private static void assertEmail(String email) {
-        Assert.hasText(email, "Email should not be null");
-    }
 }

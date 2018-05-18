@@ -2,7 +2,6 @@ package com.example.core.service.customer.impl;
 
 import com.example.core.dto.CustomerDto;
 import com.example.core.entity.user.Customer;
-import com.example.core.repository.customer.CustomerEntityManagementRepository;
 import com.example.core.repository.customer.CustomerRepository;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.customer.CustomerService;
@@ -25,9 +24,6 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
 
     @Autowired
     private CustomerRepository customerRepository;
-
-    @Autowired
-    private CustomerEntityManagementRepository customerEntityManagementRepository;
 
     // Abstract Methods
     @Override
@@ -70,7 +66,7 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
     public List<Customer> getLimitedCustomers(Integer limit, Integer offset) {
         assertLimit(limit);
         assertOffset(offset);
-        return customerEntityManagementRepository.getLimitedUsers(limit, offset);
+        return customerRepository.getLimitedUsers(limit, offset);
     }
 
     @Override
@@ -105,9 +101,15 @@ public class CustomerServiceImpl extends AbstractUserServiceImpl<Customer> imple
 
     private static void assertLimit(Integer limit) {
         Assert.notNull(limit, "Limit should not be null");
+        if (limit < 0) {
+            throw new RuntimeException("Limit must be positive number");
+        }
     }
 
     private static void assertOffset(Integer offset) {
         Assert.notNull(offset, "Offset should not be null");
+        if (offset < 0) {
+            throw new RuntimeException("Offset must be positive number");
+        }
     }
 }

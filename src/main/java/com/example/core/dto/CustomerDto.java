@@ -7,14 +7,25 @@ import com.example.core.entity.user.Customer;
  * Date - 5/9/18
  * Time - 7:54 PM
  */
-public class CustomerDto extends AbstractUserDto<Customer> {
+public class CustomerDto {
 
     private static final long serialVersionUID = 987278176273977886L;
 
     // Properties
+    private String password;
+
     private String firstName;
 
     // Getters and Setters
+    public String getPassword() {
+        return password;
+    }
+
+    public CustomerDto setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
     public String getFirstName() {
         return firstName;
     }

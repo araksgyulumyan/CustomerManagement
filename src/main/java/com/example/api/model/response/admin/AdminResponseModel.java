@@ -1,4 +1,4 @@
-package com.example.api.model.user;
+package com.example.api.model.response.admin;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -10,19 +10,17 @@ import java.util.List;
 
 /**
  * Created by araksgyulumyan
- * Date - 5/17/18
- * Time - 5:44 PM
+ * Date - 5/18/18
+ * Time - 4:48 PM
  */
 
-public abstract class AbstractUserModel implements Serializable {
-    private static final long serialVersionUID = 3225967404144212994L;
+public class AdminResponseModel implements Serializable {
+
+    private static final long serialVersionUID = 8536156015183054929L;
 
     // Properties
     @NotNull
     private String email;
-
-    @NotNull
-    private String password;
 
     private List<String> errors;
 
@@ -31,17 +29,8 @@ public abstract class AbstractUserModel implements Serializable {
         return email;
     }
 
-    public AbstractUserModel setEmail(String email) {
+    public AdminResponseModel setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public AbstractUserModel setPassword(String password) {
-        this.password = password;
         return this;
     }
 
@@ -49,10 +38,10 @@ public abstract class AbstractUserModel implements Serializable {
         return errors;
     }
 
-    public AbstractUserModel setErrors(List<String> errors) {
+    public void setErrors(List<String> errors) {
         this.errors = errors;
-        return this;
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -65,10 +54,10 @@ public abstract class AbstractUserModel implements Serializable {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        AbstractUserModel rhs = (AbstractUserModel) obj;
+        AdminResponseModel rhs = (AdminResponseModel) obj;
         return new EqualsBuilder()
                 .append(this.email, rhs.email)
-                .append(this.password, rhs.password)
+                .append(this.errors, rhs.errors)
                 .isEquals();
     }
 
@@ -76,7 +65,7 @@ public abstract class AbstractUserModel implements Serializable {
     public int hashCode() {
         return new HashCodeBuilder()
                 .append(email)
-                .append(password)
+                .append(errors)
                 .toHashCode();
     }
 
@@ -84,7 +73,7 @@ public abstract class AbstractUserModel implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("email", email)
-                .append("password", password)
+                .append("errors", errors)
                 .toString();
     }
 }
