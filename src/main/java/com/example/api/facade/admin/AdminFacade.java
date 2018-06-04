@@ -11,7 +11,7 @@ import com.example.api.model.response.admin.AdminResponseModel;
 
 public interface AdminFacade {
 
-    AdminResponseModel create(final String email, final AdminRequestModel userModel);
+    AdminResponseModel create(final AdminRequestModel userModel);
 
     void deleteUser(final Long userId);
 

@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * Created by araksgyulumyan
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * Time - 5:47 PM
  */
 
-public class CustomerRequestModel {
+public class CustomerRequestModel implements Serializable {
 
     private static final long serialVersionUID = 1642165484706266683L;
 

@@ -3,11 +3,13 @@ package com.example.api.facade.admin.impl;
 import com.example.api.facade.admin.AdminFacade;
 import com.example.api.model.request.admin.AdminRequestModel;
 import com.example.api.model.response.admin.AdminResponseModel;
-import com.example.core.dto.AdminDto;
+import com.example.api.model.response.common.ErrorType;
 import com.example.core.entity.user.Admin;
 import com.example.core.service.admin.AdminService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 /**
  * Created by araksgyulumyan
@@ -23,9 +25,15 @@ public class AdminFacadeImpl implements AdminFacade {
 
     // Interface public methods overrides
     @Override
-    public AdminResponseModel create(String email, AdminRequestModel adminRequestModel) {
-        Admin admin = adminService.createAdmin(email, toAdminDto(adminRequestModel));
-        return convertToAdminResponseModel(admin);
+    public AdminResponseModel create(AdminRequestModel adminRequestModel) {
+        Assert.notNull(adminRequestModel, "Request model should not be null");
+        final AdminResponseModel responseModel = new AdminResponseModel();
+        validateRequest(adminRequestModel, responseModel);
+        if (responseModel.hasErrors()) {
+            return responseModel;
+        }
+        final Admin admin = adminService.createAdmin(adminRequestModel.getEmail(), adminRequestModel.getPassword());
+        return convertToAdminResponseModel(admin, responseModel);
     }
 
     @Override
@@ -34,11 +42,18 @@ public class AdminFacadeImpl implements AdminFacade {
     }
 
     // Utility methods
-    private static AdminDto toAdminDto(final AdminRequestModel adminRequestModel) {
-        return new AdminDto().setPassword(adminRequestModel.getPassword());
+    private AdminResponseModel convertToAdminResponseModel(final Admin admin, final AdminResponseModel adminResponseModel) {
+        adminResponseModel.setId(admin.getId());
+        adminResponseModel.setEmail(admin.getEmail());
+        return adminResponseModel;
     }
 
-    private AdminResponseModel convertToAdminResponseModel(Admin admin) {
-        return new AdminResponseModel().setEmail(admin.getEmail());
+    private static void validateRequest(final AdminRequestModel adminRequestModel, final AdminResponseModel responseModel) {
+        if (StringUtils.isEmpty(adminRequestModel.getEmail())) {
+            responseModel.getErrors().add(ErrorType.ADMIN_INVALID_EMAIL);
+        }
+        if (StringUtils.isEmpty(adminRequestModel.getPassword())) {
+            responseModel.getErrors().add(ErrorType.ADMIN_INVALID_PASSWORD);
+        }
     }
 }

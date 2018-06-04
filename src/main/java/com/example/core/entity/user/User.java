@@ -15,9 +15,9 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "user")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "type")
+@MappedSuperclass
 public abstract class User implements Serializable {
 
     private static final long serialVersionUID = 8913560265536527737L;

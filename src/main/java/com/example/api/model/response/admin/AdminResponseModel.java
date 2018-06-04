@@ -1,12 +1,9 @@
 package com.example.api.model.response.admin;
 
+import com.example.api.model.response.AbstractResponseModel;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by araksgyulumyan
@@ -14,32 +11,31 @@ import java.util.List;
  * Time - 4:48 PM
  */
 
-public class AdminResponseModel implements Serializable {
+public class AdminResponseModel extends AbstractResponseModel {
 
     private static final long serialVersionUID = 8536156015183054929L;
 
     // Properties
-    @NotNull
+    private Long id;
+
     private String email;
 
-    private List<String> errors;
-
     // Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return email;
     }
 
-    public AdminResponseModel setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public List<String> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(List<String> errors) {
-        this.errors = errors;
     }
 
 
@@ -56,24 +52,28 @@ public class AdminResponseModel implements Serializable {
         }
         AdminResponseModel rhs = (AdminResponseModel) obj;
         return new EqualsBuilder()
+                .appendSuper(super.equals(obj))
+                .append(this.id, rhs.id)
                 .append(this.email, rhs.email)
-                .append(this.errors, rhs.errors)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
+                .appendSuper(super.hashCode())
+                .append(id)
                 .append(email)
-                .append(errors)
                 .toHashCode();
     }
+
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .appendSuper(super.toString())
+                .append("id", id)
                 .append("email", email)
-                .append("errors", errors)
                 .toString();
     }
 }

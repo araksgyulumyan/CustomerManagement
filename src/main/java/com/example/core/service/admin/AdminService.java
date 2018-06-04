@@ -1,6 +1,5 @@
 package com.example.core.service.admin;
 
-import com.example.core.dto.AdminDto;
 import com.example.core.entity.user.Admin;
 import com.example.core.service.user.AbstractUserService;
 
@@ -11,7 +10,7 @@ import com.example.core.service.user.AbstractUserService;
  */
 public interface AdminService extends AbstractUserService<Admin> {
 
-    Admin createAdmin(final String email, final AdminDto adminDto);
+    Admin createAdmin(final String email, final String password);
 
     Admin getAdminById(final Long adminId);
 }

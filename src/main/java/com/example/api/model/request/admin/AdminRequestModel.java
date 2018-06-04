@@ -4,7 +4,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -18,10 +17,8 @@ public class AdminRequestModel implements Serializable {
     private static final long serialVersionUID = -1887221277178794474L;
 
     // Properties
-    @NotNull
     private String email;
 
-    @NotNull
     private String password;
 
     // Getters and Setters
@@ -29,9 +26,8 @@ public class AdminRequestModel implements Serializable {
         return email;
     }
 
-    public AdminRequestModel setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public String getPassword() {

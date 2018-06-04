@@ -4,6 +4,8 @@ import com.example.core.entity.user.User;
 import com.example.core.repository.user.AbstractUserRepository;
 import com.example.core.service.user.AbstractUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -15,6 +17,11 @@ import org.springframework.util.Assert;
  */
 @Service
 public abstract class AbstractUserServiceImpl<T extends User> implements AbstractUserService<T> {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Autowired
     protected PasswordEncoder passwordEncoder;

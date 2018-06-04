@@ -30,6 +30,11 @@ TO READ
 4) read about Serializable +
 5) read about dependency scope types
 
+6) read DAO vs Repository
+7) Proxy design pattern
+8) Singleton design pattern (3)
+9) Garbage collection
+10) Multithreading (monitor, semaphore)
 
 SEPARATE PER PACKAGE MODELS, REPOS etc....
 
