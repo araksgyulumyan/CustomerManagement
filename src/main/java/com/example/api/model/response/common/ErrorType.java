@@ -8,6 +8,11 @@ package com.example.api.model.response.common;
 public enum ErrorType {
     // Admin
     ADMIN_INVALID_EMAIL,
-    ADMIN_INVALID_PASSWORD
+    ADMIN_INVALID_PASSWORD,
+
+    //Customer
+    CUSTOMER_INVALID_EMAIL,
+    CUSTOMER_INVALID_PASSWORD,
+    CUSTOMER_INVALID_FIRST_NAME
 
 }
